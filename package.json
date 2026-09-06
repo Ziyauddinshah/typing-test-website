@@ -1,0 +1,12 @@
+{
+  "name": "typing-test-localhost",
+  "version": "1.0.0",
+  "description": "Professional English and Hindi Typing Test for Localhost",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["typing", "typing-test", "hindi-typing", "english-typing"],
+  "author": "",
+  "license": "MIT"
+}

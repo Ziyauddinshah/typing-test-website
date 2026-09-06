@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Master — English & Hindi Speed Test</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Top Navigation & Controls Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">⌨</div>
+        <div>
+          <h1>Typing Master <span class="badge-pro">PRO</span></h1>
+          <p class="subtitle">English & हिन्दी Word-by-Word Typing Speed Test</p>
+        </div>
+      </div>
+      <!-- User Authentication & Profile Area -->
+      <div class="user-auth-area" id="userAuthArea">
+        <!-- Logged Out State -->
+        <button id="authOpenBtn" class="btn-icon btn-auth" title="Sign In or Create Account">
+          <span class="btn-icon-symbol">👤</span>
+          <span class="btn-label" id="authBtnLabel">Sign In</span>
+        </button>
+
+        <!-- Logged In State Chip -->
+        <div id="userChip" class="user-chip hidden" tabindex="0" title="Account Menu">
+          <div class="avatar-circle" id="userAvatar">U</div>
+          <span class="user-chip-name" id="userChipName">User</span>
+          <span class="chip-arrow">▾</span>
+
+          <!-- Dropdown Menu -->
+          <div class="user-dropdown hidden" id="userDropdown">
+            <div class="user-dropdown-header">
+              <strong id="dropdownFullName">User Name</strong>
+              <span id="dropdownUsername">@username</span>
+            </div>
+            <div class="user-dropdown-divider"></div>
+            <button class="user-dropdown-item" id="dropdownHistoryBtn" type="button">
+              <span>📊</span> My Typing History
+            </button>
+            <div class="user-dropdown-divider"></div>
+            <button class="user-dropdown-item text-danger" id="dropdownLogoutBtn" type="button">
+              <span>🚪</span> Log Out
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+    </header>
+    <div class="toolbar">
+      <div class="control-group">
+        <label for="languageSelect">Language</label>
+        <select id="languageSelect" class="custom-select">
+          <option value="en">English</option>
+          <option value="hi">हिन्दी (Hindi)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="durationSelect">Duration</label>
+        <select id="durationSelect" class="custom-select">
+          <option value="5" selected>5 Minutes</option>
+          <option value="10">10 Minutes</option>
+          <option value="15">15 Minutes</option>
+          <option value="30">30 Minutes</option>
+          <option value="1">1 Minute (Quick)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="passageSelect">Practice Passage</label>
+        <select id="passageSelect" class="custom-select select-passage">
+          <!-- Dynamically populated with 20+ passages -->
+        </select>
+      </div>
+
+      <button id="soundToggle" class="btn-icon" title="Toggle Sound Feedback">
+        <span id="soundIcon">🔊</span>
+        <span class="btn-label">Sound</span>
+      </button>
+
+      <button id="fullscreenToggle" class="btn-icon" title="Toggle Fullscreen Mode">
+        <span id="fullscreenIcon">⛶</span>
+        <span id="fullscreenLabel" class="btn-label">Fullscreen</span>
+      </button>
+
+      <button id="historyToggleBtn" class="btn-icon" title="View Typing History & Progress">
+        <span class="btn-icon-symbol">📊</span>
+        <span class="btn-label">History</span>
+      </button>
+
+
+
+      <button id="restartBtn" class="btn-primary" title="Restart Test (or press Esc)">
+        <span class="btn-icon-symbol">⟳</span> Restart
+      </button>
+    </div>
+    <hr />
+
+    <!-- Real-time Live Metrics Panel -->
+    <section class="metrics-panel">
+      <div class="metric-card highlight-time">
+        <div class="metric-label">Time Left</div>
+        <div class="metric-value mono" id="timeLeftDisplay">05:00</div>
+        <div class="metric-footer" id="timerProgressContainer">
+          <div class="progress-bar-fill" id="timerProgressBar"></div>
+        </div>
+      </div>
+
+      <div class="metric-card highlight-wpm">
+        <div class="metric-label">Speed (WPM)</div>
+        <div class="metric-value mono" id="wpmDisplay">0</div>
+        <div class="metric-sub" id="netWpmLabel">Net WPM</div>
+      </div>
+
+      <div class="metric-card highlight-acc">
+        <div class="metric-label">Accuracy</div>
+        <div class="metric-value mono" id="accuracyDisplay">100%</div>
+        <div class="metric-sub">Word Precision</div>
+      </div>
+
+      <div class="metric-card highlight-correct">
+        <div class="metric-label">Correct Words</div>
+        <div class="metric-value mono" id="correctWordsDisplay">0</div>
+        <div class="metric-sub text-success">✓ Exact Matches</div>
+      </div>
+
+      <div class="metric-card highlight-wrong">
+        <div class="metric-label">Wrong Words</div>
+        <div class="metric-value mono" id="wrongWordsDisplay">0</div>
+        <div class="metric-sub text-danger">✗ Mismatched</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">Errors</div>
+        <div class="metric-value mono" id="errorsDisplay">0</div>
+        <div class="metric-sub">Keystroke Typos</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">Time Taken</div>
+        <div class="metric-value mono" id="timeTakenDisplay">00:00</div>
+        <div class="metric-sub">Active Elapsed</div>
+      </div>
+    </section>
+
+    <!-- Main Word-by-Word Typing Arena -->
+    <main class="typing-arena">
+      <div class="arena-header">
+        <div class="status-indicator">
+          <span class="lang-tag" id="currentLangTag">English</span>
+          <span class="status-tip" id="statusTip">Type the word and press <strong>[Space]</strong> to submit.</span>
+        </div>
+        <div class="shortcuts-hint">
+          <span><kbd>Space</kbd> Submit word</span>
+          <span><kbd>Esc</kbd> Restart</span>
+        </div>
+      </div>
+
+      <!-- Scrollable Words Viewport -->
+      <div class="words-wrapper" id="wordsWrapper" tabindex="0">
+        <div class="words-container" id="wordsContainer">
+          <!-- Dynamic word spans injected here -->
+        </div>
+      </div>
+
+      <!-- Live Typing Input Box -->
+      <div class="input-container">
+        <div class="input-prefix" id="inputStatusIndicator">✍</div>
+        <input type="text" id="wordInput" class="word-input"
+          placeholder="Click here and start typing to begin the test..." autocomplete="off" autocorrect="off"
+          autocapitalize="off" spellcheck="false" />
+        <div class="input-actions">
+          <button id="quickResetBtn" class="btn-ghost" title="Reset test">Reset</button>
+        </div>
+      </div>
+
+      <!-- Color Legend & Behavior Guide -->
+      <div class="legend-bar">
+        <div class="legend-item"><span class="legend-dot dot-active"></span> Current Word</div>
+        <div class="legend-item"><span class="legend-dot dot-correct"></span> Correct Word (Green)</div>
+        <div class="legend-item"><span class="legend-dot dot-wrong"></span> Wrong Word (Red)</div>
+        <div class="legend-item"><span class="legend-dot dot-error"></span> Live Typo in active word</div>
+      </div>
+    </main>
+
+    <!-- Explanatory Information & Hindi Typing Help -->
+    <section class="info-section">
+      <div class="info-card">
+        <div class="info-icon">⚡</div>
+        <h3>Professional Typing Rules</h3>
+        <ul>
+          <li><strong>Space Submits:</strong> Hitting <kbd>Space</kbd> immediately checks and locks the current word.
+          </li>
+          <li><strong>Color Coded:</strong> Correct words turn <span class="badge-green">green</span>; misspelled words
+            turn <span class="badge-red">red</span>.</li>
+          <li><strong>Strict Backspace:</strong> Backspace only corrects the current word. It will not delete into
+            previously submitted words.</li>
+          <li><strong>Live Character Feedback:</strong> Active letters turn red as soon as a typo is entered.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">🇮🇳</div>
+        <h3>हिन्दी टाइपिंग (Hindi Guide)</h3>
+        <ul>
+          <li>Supports all standard Hindi keyboards: <strong>Inscript</strong>, <strong>Remington (CBE)</strong>, and
+            <strong>Hindi Phonetic / Transliteration</strong>.
+          </li>
+          <li>Full support for संयुक्ताक्षर (conjuncts), मात्राएँ, and हलन्त (्).</li>
+          <li>Uses high-clarity <em>Noto Sans Devanagari</em> font for maximum legibility.</li>
+          <li>Word-by-word space submission works identically for Hindi words.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">📊</div>
+        <h3>Calculation Standards</h3>
+        <ul>
+          <li><strong>Net WPM:</strong> <code>(Correct Characters / 5) ÷ Elapsed Minutes</code> (Official Standard).
+          </li>
+          <li><strong>Gross WPM:</strong> <code>(Total Typed Characters / 5) ÷ Elapsed Minutes</code>.</li>
+          <li><strong>Accuracy:</strong> <code>(Correct Words / Total Submitted Words) × 100%</code>.</li>
+          <li>Supports 5, 10, 15, and 30-minute endurance typing evaluations.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>Typing Master • Localhost Edition • Completely Offline • Zero External Dependencies</div>
+      <div class="footer-sub">Press <kbd>Esc</kbd> anytime to restart test</div>
+    </footer>
+  </div>
+
+  <!-- Test Completion Modal Dialog -->
+  <div class="modal-overlay hidden" id="resultModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="trophy-badge">🏆</div>
+        <h2>Test Completed!</h2>
+        <p id="modalSubtitle">Great effort! Here is your typing speed and accuracy summary.</p>
+      </div>
+
+      <div id="pbBanner" class="pb-banner hidden">
+        <span class="pb-badge">🌟 NEW PERSONAL BEST!</span>
+        <span id="pbBannerText">You reached a record typing speed!</span>
+      </div>
+
+      <div class="result-stats-grid">
+        <div class="result-stat primary-stat">
+          <span class="stat-title">Net Speed</span>
+          <div class="stat-number mono" id="modalNetWpm">0</div>
+          <span class="stat-unit">WPM</span>
+        </div>
+
+        <div class="result-stat primary-stat">
+          <span class="stat-title">Accuracy</span>
+          <div class="stat-number mono" id="modalAccuracy">100%</div>
+          <span class="stat-unit">Precision</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="stat-title">Gross WPM</span>
+          <div class="stat-number mono" id="modalGrossWpm">0</div>
+          <span class="stat-unit">Raw Speed</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="stat-title">Correct Words</span>
+          <div class="stat-number mono text-success" id="modalCorrectWords">0</div>
+          <span class="stat-unit">Words</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="stat-title">Wrong Words</span>
+          <div class="stat-number mono text-danger" id="modalWrongWords">0</div>
+          <span class="stat-unit">Words</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="stat-title">Keystrokes</span>
+          <div class="stat-number mono" id="modalKeystrokes">0</div>
+          <span class="stat-unit">Total (<span id="modalKeystrokeDetails" class="text-subtle">0/0</span>)</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="stat-title">Total Errors</span>
+          <div class="stat-number mono text-danger" id="modalErrors">0</div>
+          <span class="stat-unit">Mistakes</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="stat-title">Time Taken</span>
+          <div class="stat-number mono" id="modalTimeTaken">00:00</div>
+          <span class="stat-unit">Duration</span>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="modalRestartBtn" class="btn-primary btn-large">
+          <span>⟳</span> Try Again (Restart)
+        </button>
+        <button id="modalViewHistoryBtn" class="btn-secondary btn-large">
+          <span>📊</span> View History
+        </button>
+        <button id="modalCloseBtn" class="btn-secondary btn-large">
+          Close Review
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typing History & Progress Modal Dialog -->
+  <div class="modal-overlay hidden" id="historyModal">
+    <div class="modal-dialog history-dialog">
+      <div class="history-header">
+        <div class="history-title-wrap">
+          <span class="history-icon-badge">📈</span>
+          <div>
+            <h2>Typing History & Progress</h2>
+            <p>Track your speed records, accuracy trends, and skill progression over time.</p>
+          </div>
+        </div>
+        <button id="historyCloseBtn" class="btn-close" title="Close History">✕</button>
+      </div>
+
+      <!-- Analytics Summary Cards -->
+      <div class="history-analytics-grid">
+        <div class="history-stat-card card-pb">
+          <span class="h-stat-label">🏆 Best Speed</span>
+          <div class="h-stat-value mono" id="historyBestWpm">0 <span class="h-stat-unit">WPM</span></div>
+          <span class="h-stat-sub" id="historyBestWpmSub">Personal Record</span>
+        </div>
+        <div class="history-stat-card">
+          <span class="h-stat-label">⚡ Average Speed</span>
+          <div class="h-stat-value mono" id="historyAvgWpm">0 <span class="h-stat-unit">WPM</span></div>
+          <span class="h-stat-sub">Overall Average</span>
+        </div>
+        <div class="history-stat-card">
+          <span class="h-stat-label">🎯 Avg Accuracy</span>
+          <div class="h-stat-value mono" id="historyAvgAccuracy">100%</div>
+          <span class="h-stat-sub">Typing Precision</span>
+        </div>
+        <div class="history-stat-card">
+          <span class="h-stat-label">⏱ Practice Time</span>
+          <div class="h-stat-value mono" id="historyTotalTime">0m</div>
+          <span class="h-stat-sub">Total Time Practiced</span>
+        </div>
+        <div class="history-stat-card">
+          <span class="h-stat-label">📝 Tests Taken</span>
+          <div class="h-stat-value mono" id="historyTotalTests">0</div>
+          <span class="h-stat-sub">Completed Sessions</span>
+        </div>
+      </div>
+
+      <!-- History Filter & Action Toolbar -->
+      <div class="history-toolbar">
+        <div class="history-filter-group">
+          <label for="historyFilterLang">Filter Language:</label>
+          <select id="historyFilterLang" class="custom-select select-sm">
+            <option value="all">All Languages</option>
+            <option value="en">English Only</option>
+            <option value="hi">हिन्दी Only</option>
+          </select>
+        </div>
+
+        <div class="history-actions-group">
+          <button id="exportHistoryBtn" class="btn-outline" title="Export practice history as CSV spreadsheet">
+            <span>📥</span> Export CSV
+          </button>
+          <button id="clearHistoryBtn" class="btn-danger-ghost" title="Clear all saved history">
+            <span>🗑</span> Clear History
+          </button>
+        </div>
+      </div>
+
+      <!-- History Data Table Container -->
+      <div class="history-table-wrapper">
+        <table class="history-table" id="historyTable">
+          <thead>
+            <tr>
+              <th>Date & Time</th>
+              <th>Language</th>
+              <th>Passage Title</th>
+              <th>Speed (WPM)</th>
+              <th>Accuracy</th>
+              <th>Words (✓ / ✗)</th>
+              <th>Errors</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- Dynamically populated rows -->
+          </tbody>
+        </table>
+
+        <!-- Empty State Message -->
+        <div id="historyEmptyState" class="history-empty hidden">
+          <div class="empty-icon">📂</div>
+          <p class="empty-title">No Typing History Yet</p>
+          <p class="empty-desc">Complete a typing session to see your speed, accuracy, and skill growth recorded here
+            automatically.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login / Sign Up Authentication Modal Dialog -->
+  <div class="modal-overlay hidden" id="authModal">
+    <div class="modal-dialog auth-dialog">
+      <div class="auth-header">
+        <div class="auth-title-wrap">
+          <span class="auth-icon-badge">🔐</span>
+          <div>
+            <h2 id="authModalTitle">User Account</h2>
+            <p id="authModalSubtitle">Sign in or create an account to save your private typing history.</p>
+          </div>
+        </div>
+        <button id="authCloseBtn" class="btn-close" title="Close">✕</button>
+      </div>
+
+      <!-- Auth Tabs: Login vs Sign Up -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="tabLoginBtn">Log In</button>
+        <button type="button" class="auth-tab" id="tabSignupBtn">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form">
+        <div class="auth-alert hidden" id="loginAlert"></div>
+
+        <div class="form-group">
+          <label for="loginUsername">Username</label>
+          <input type="text" id="loginUsername" class="auth-input" placeholder="e.g. ziya" required
+            autocomplete="username" />
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="auth-input" placeholder="Your password" required
+            autocomplete="current-password" />
+        </div>
+
+        <button type="submit" class="btn-primary btn-block" id="loginSubmitBtn">
+          Log In
+        </button>
+
+        <p class="auth-switch-text">
+          Don't have an account? <a href="#" id="switchToSignupLink">Sign up here</a>
+        </p>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" class="auth-form hidden">
+        <div class="auth-alert hidden" id="signupAlert"></div>
+
+        <div class="form-group">
+          <label for="signupFullName">Full Name / Display Name</label>
+          <input type="text" id="signupFullName" class="auth-input" placeholder="e.g. Ziyauddin" required
+            autocomplete="name" />
+        </div>
+
+        <div class="form-group">
+          <label for="signupUsername">Username</label>
+          <input type="text" id="signupUsername" class="auth-input"
+            placeholder="Letters, numbers, underscores (min 3 chars)" required autocomplete="username" />
+        </div>
+
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" class="auth-input" placeholder="Minimum 4 characters" required
+            autocomplete="new-password" />
+        </div>
+
+        <div class="form-group">
+          <label for="signupConfirmPassword">Confirm Password</label>
+          <input type="password" id="signupConfirmPassword" class="auth-input" placeholder="Re-enter password" required
+            autocomplete="new-password" />
+        </div>
+
+        <button type="submit" class="btn-primary btn-block" id="signupSubmitBtn">
+          Create Account & Sign In
+        </button>
+
+        <p class="auth-switch-text">
+          Already have an account? <a href="#" id="switchToLoginLink">Log in here</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
