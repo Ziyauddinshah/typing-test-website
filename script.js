@@ -6,237 +6,241 @@
 // ==========================================
 // 22 Curated English & 22 Curated Hindi Passages
 // ==========================================
-const PASSAGES = {
-  en: [
-    {
-      id: 1,
-      title: "1. The Wonder of the Night Sky",
-      text: "Looking up at the clear night sky, one is filled with deep awe and curiosity. Countless stars glitter across the vast cosmos, reminding us of our tiny place in this grand universe. For thousands of years, ancient navigators relied on the constellations to travel across uncharted oceans. Today, modern telescopes allow astronomers to study distant galaxies, nebulae, and exoplanets. As space science advances, our understanding of the origins of life and matter continues to expand.",
-    },
-    {
-      id: 2,
-      title: "2. The Evolution of the Internet",
-      text: "The internet has transformed modern human civilization more rapidly than almost any other invention in history. What began as a modest research network between universities has now grown into a global communications infrastructure. Billions of people connect across continents in a fraction of a second to share ideas, conduct business, and access knowledge. Digital connectivity enables rapid medical advancements, remote collaboration, and international trade, shaping a truly interconnected world.",
-    },
-    {
-      id: 3,
-      title: "3. The Power of Small Habits",
-      text: "True success rarely happens overnight through a single dramatic event. Instead, remarkable achievements are usually the result of small, consistent daily habits practiced diligently over time. When an individual commits to reading ten pages a day, exercising for twenty minutes, or learning new vocabulary, the cumulative benefits compound remarkably over months and years. Discipline and patience are far more reliable than fleeting bursts of motivation.",
-    },
-    {
-      id: 4,
-      title: "4. Deep Oceans and Marine Wonders",
-      text: "Earth is fundamentally an oceanic planet, with water covering more than seventy percent of its surface. The deep abyss remains one of the least explored environments in our solar system, home to mysterious bioluminescent creatures that thrive under crushing pressure and total darkness. Hydrothermal vents support entire food webs powered by chemical synthesis rather than sunlight. Protecting fragile coral reefs and marine ecosystems is essential for sustaining atmospheric balance and global biodiversity.",
-    },
-    {
-      id: 5,
-      title: "5. The Philosophy of Mindful Living",
-      text: "In a modern world saturated with constant noise, rapid notifications, and endless distractions, finding inner calm has become an essential life skill. Practicing mindfulness teaches us to direct conscious attention to the present moment without hasty judgment. By pausing to observe our thoughts, emotions, and breath, we develop mental clarity and emotional resilience. Simple quiet walks in nature and uninterrupted moments of reflection help restore peace to a weary mind.",
-    },
-    {
-      id: 6,
-      title: "6. The Joy of Lifelong Reading",
-      text: "Books are quiet companions that hold the distilled wisdom of countless generations. When we open a well-written book, we embark on an intellectual journey through history, philosophy, and imagination. Reading stimulates cognitive vitality, sharpens analytical reasoning, and cultivates deep empathy by allowing us to experience life through another person's eyes. Cultivating a regular reading routine is one of the finest investments an individual can make in personal growth.",
-    },
-    {
-      id: 7,
-      title: "7. Renewable Energy and the Green Future",
-      text: "Transitioning to clean, renewable sources of power is the paramount environmental challenge of our era. Solar panels capture clean photons from our sun, while modern wind turbines generate immense clean electricity across breezy plains and offshore coasts. Geothermal and green hydrogen technologies offer promising pathways for industrial decarbonization. By investing boldly in smart electrical grids, humanity can build a resilient, prosperous, and sustainable planet for future generations.",
-    },
-    {
-      id: 8,
-      title: "8. The Architecture of Ancient Wonders",
-      text: "Ancient builders accomplished astonishing engineering triumphs long before the invention of modern machinery. The Great Pyramid of Giza, the Roman Colosseum, and the majestic temples of Asia stand as enduring monuments to human determination, mathematical precision, and artistic vision. These ancient structures tell timeless stories of civilization, trade networks, religious reverence, and civic pride that continue to inspire architects and historians today.",
-    },
-    {
-      id: 9,
-      title: "9. Artificial Intelligence and Creativity",
-      text: "The rapid development of artificial intelligence marks a historic turning point in computation and human ingenuity. Intelligent algorithms can analyze massive datasets, discover novel pharmaceuticals, predict weather patterns, and automate routine tasks. However, genuine creativity, moral empathy, and emotional warmth remain distinctively human attributes. The future belongs to thoughtful collaborations between human creativity and computational intelligence.",
-    },
-    {
-      id: 10,
-      title: "10. The Healing Power of Forests",
-      text: "Forests are the living green lungs of our planet, absorbing carbon dioxide and breathing vital oxygen into the atmosphere. The intricate fungal networks beneath the forest floor allow trees to communicate, share essential nutrients, and warn neighboring plants of pests. Spending mindful time among old trees lowers human stress hormones, strengthens immune health, and restores tranquility, demonstrating the profound biological bond between humanity and nature.",
-    },
-    {
-      id: 11,
-      title: "11. The History of Written Communication",
-      text: "The invention of writing represents one of humanity's greatest cultural milestones. From ancient cuneiform clay tablets and Egyptian hieroglyphs to parchment manuscripts and Gutenberg's revolutionary printing press, written words allowed knowledge to survive across centuries. Today, instant digital text connects distant cultures instantly. Writing preserves legal agreements, sacred poetry, scientific breakthroughs, and the rich narrative tapestry of human existence.",
-    },
-    {
-      id: 12,
-      title: "12. Mountain Climbing and Human Courage",
-      text: "Scaling towering mountain peaks requires rigorous physical endurance, mental discipline, and absolute respect for natural elements. High-altitude mountaineers brave freezing blizzards, thin oxygen, and treacherous icy crevasses in pursuit of high summits. The climb teaches humility, focus, and comradeship among team members. Reaching a windswept mountain peak reveals magnificent vistas that remind climbers that the journey itself is the true reward.",
-    },
-    {
-      id: 13,
-      title: "13. The Science of Healthy Sleep",
-      text: "Restful sleep is not a passive luxury, but a biological necessity vital for mental and physical health. During deep sleep cycles, the human brain consolidates memories, clears toxic cellular debris, and restores energy reserves. Chronic sleep deprivation weakens the immune defense, degrades emotional stability, and impairs cognitive reaction times. Maintaining consistent sleep hours and a calm evening routine enhances overall vigor, memory retention, and daily productivity.",
-    },
-    {
-      id: 14,
-      title: "14. Culinary Traditions and Culture",
-      text: "Food is far more than mere biological nourishment; it is a delicious expression of cultural history and communal love. Traditional culinary recipes passed down through generations carry the aromas, regional spices, and heartwarming stories of ancestral kitchens. Gathering around a warm dinner table fosters meaningful bonds, celebration, and hospitality among family and neighbors, transcending linguistic barriers across the globe.",
-    },
-    {
-      id: 15,
-      title: "15. The Journey to the Red Planet",
-      text: "Exploring planet Mars stands as the next great frontier for human space exploration. Robotic rovers equipped with advanced scientific instruments traverse rocky red craters in search of ancient water signatures and microbial life. Establishing human settlements on Mars will demand breakthrough advances in closed-loop life support, radiation shielding, and sustainable food production, inspiring humanity to dream far beyond our home planet.",
-    },
-    {
-      id: 16,
-      title: "16. The Universal Language of Music",
-      text: "Music possesses a unique emotional power to transcend cultural boundaries and unite human hearts across the world. An evocative melody, a rhythmic drumbeat, or a stirring orchestral harmony can evoke joy, nostalgia, courage, or contemplative sadness without uttering a single spoken word. Throughout human history, music has accompanied ceremonies, inspired revolutions, celebrated love, and comforted troubled souls.",
-    },
-    {
-      id: 17,
-      title: "17. Sustainable Agriculture and Soil Health",
-      text: "Feeding a growing global population while protecting delicate topsoil and freshwater reserves demands innovative agricultural practices. Regenerative farming techniques, crop rotation, organic composting, and precision drip irrigation restore fertility to exhausted soil. By reducing chemical pesticides and minimizing food waste across supply chains, communities can achieve equitable food security and protect our fragile biosphere.",
-    },
-    {
-      id: 18,
-      title: "18. The Dynamics of Modern Cities",
-      text: "Contemporary metropolitan cities are vibrant hubs of economic innovation, architectural splendor, and diverse cultures. Well-planned urban environments prioritize accessible public transit, pedestrian-friendly streets, green public parks, and affordable energy-efficient housing. When urban centers cultivate inclusive communities and resilient infrastructure, they become dynamic engines of intellectual, artistic, and social progress.",
-    },
-    {
-      id: 19,
-      title: "19. The Psychology of Emotional Resilience",
-      text: "Life inevitably brings unforeseen difficulties, sudden losses, and demanding setbacks. Resilience is not the complete absence of emotional pain, but the inner capacity to adapt, recover, and grow stronger in the face of adversity. By cultivating optimistic problem-solving skills, practicing self-compassion, and seeking encouragement from trusted mentors, people develop the emotional fortitude needed to triumph over life's trials.",
-    },
-    {
-      id: 20,
-      title: "20. Wildlife Conservation and Biodiversity",
-      text: "Every living species, from the smallest pollinating bee to the majestic blue whale, plays an irreplaceable role in maintaining healthy ecological balance. Habitat loss, poaching, and climate disruption threaten thousands of vulnerable plant and animal species worldwide. Establishing wildlife corridors, preserving native habitats, and enforcing conservation laws are vital moral responsibilities for preserving the wonderful diversity of earthly life.",
-    },
-    {
-      id: 21,
-      title: "21. The Craft of Storytelling",
-      text: "Since the dawn of human civilization, people have gathered around glowing campfires to share captivating stories of heroic quests, moral dilemmas, and cosmic mysteries. Storytelling preserves oral traditions, educates the young, and deepens emotional understanding among listeners. A compelling narrative sparks imagination, challenges prejudice, and reminds us that our shared human hopes and vulnerabilities unite us all.",
-    },
-    {
-      id: 22,
-      title: "22. The Value of Honest Friendships",
-      text: "Genuine friendship is one of the sweetest blessings that enrich the journey of human life. A true friend celebrates your triumphs with authentic joy and stands steadfastly beside you during challenging storms of hardship. Built upon mutual trust, honest communication, and unselfish kindness, deep friendships provide a comforting sanctuary where one can be entirely vulnerable, understood, and cherished.",
-    },
-  ],
 
-  hi: [
-    {
-      id: 1,
-      title: "१. समय का सदुपयोग और सफलता",
-      text: "समय संसार का सबसे मूल्यवान धन है क्योंकि बीता हुआ पल कभी वापस नहीं आता। जो व्यक्ति समय का सम्मान करता है और अपने दैनिक कार्यों को योजनाबद्ध तरीके से पूरा करता है, उसे जीवन में सफलता अवश्य प्राप्त होती है। आलस्य मनुष्य का सबसे बड़ा शत्रु है जो सुनहरे अवसरों को नष्ट कर देता है। हमें समय के प्रत्येक क्षण का सदुपयोग करते हुए ज्ञानार्जन, कौशल विकास और समाज के कल्याण के लिए निरंतर समर्पित रहना चाहिए।",
-    },
-    {
-      id: 2,
-      title: "२. प्रकृति का सौंदर्य और पर्यावरण संरक्षण",
-      text: "प्रकृति ईश्वर की सबसे सुंदर और अनुपम रचना है। हरे-भरे वन, कलकल बहती नदियाँ, ऊंचे पर्वत और चहकते पक्षी हमारी धरती को प्राणवान बनाते हैं। परंतु आधुनिक युग में अनियंत्रित औद्योगीकरण और प्रदूषण के कारण हमारा पर्यावरण संकट में पड़ गया है। यदि हमने वनों की कटाई रोकी और अधिक से अधिक पौधे लगाए, तो हम अपनी आने वाली पीढ़ियों को एक स्वस्थ, स्वच्छ और सुंदर ग्रह उपहार में दे सकेंगे।",
-    },
-    {
-      id: 3,
-      title: "३. भारतीय संस्कृति और विविधता में एकता",
-      text: "भारत एक प्राचीन और महान राष्ट्र है जहाँ अनेक भाषाएँ, धर्म, रीति-रिवाज और परंपराएँ एक साथ मिलकर फलती-फूलती हैं। हमारी संस्कृति 'वसुधैव कुटुम्बकम्' अर्थात समस्त पृथ्वी को एक परिवार मानने के दिव्य संदेश पर आधारित है। विभिन्नताओं के बावजूद हम सभी भारतवासी एक अटूट राष्ट्रीय भावना से जुड़े हैं। यही सांस्कृतिक विविधता और आपसी सद्भाव हमारे देश की वास्तविक शक्ति और वैश्विक पहचान है।",
-    },
-    {
-      id: 4,
-      title: "४. शिक्षा का वास्तविक उद्देश्य",
-      text: "शिक्षा का मूल उद्देश्य केवल डिग्री प्राप्त करना या आजीविका कमाना नहीं है, बल्कि व्यक्ति के चरित्र का निर्माण और उसके दृष्टिकोण को व्यापक बनाना है। सच्ची शिक्षा मनुष्य में विनम्रता, करुणा, सत्यनिष्ठा और कर्तव्यबोध का संचार करती है। जब एक शिक्षित नागरिक समाज के निर्बल वर्गों के उत्थान और देश की प्रगति के लिए विचार करता है, तभी शिक्षा की सार्थकता सिद्ध होती है।",
-    },
-    {
-      id: 5,
-      title: "५. परिश्रम और आत्म-विश्वास की शक्ति",
-      text: "परिश्रम ही सफलता की सुनहरी कुंजी है। बिना कठोर साधना और लगन के कोई भी महान लक्ष्य सिद्ध नहीं हो सकता। इतिहास गवाह है कि जिन महापुरुषों ने दुनिया को नई दिशा दी, उन्होंने निरंतर संघर्ष और अदम्य साहस से अपनी राह बनाई। जब व्यक्ति के मन में अटूट आत्मविश्वास और कर्म के प्रति निष्ठा होती है, तो बड़ी से बड़ी कठिनाई भी उसके कदमों में झुक जाती है।",
-    },
-    {
-      id: 6,
-      title: "६. विज्ञान और आधुनिक तकनीक का सदुपयोग",
-      text: "विज्ञान और प्रौद्योगिकी ने इक्कीसवीं सदी में मानव जीवन को पूरी तरह से बदल दिया है। कंप्यूटर, इंटरनेट और मोबाइल के माध्यम से ज्ञान और संचार का विस्तार असीमित हो गया है। चिकित्सा, कृषि और अंतरिक्ष के क्षेत्र में नए आविष्कारों ने असंभव को संभव बना दिया है। हमें यह स्मरण रखना चाहिए कि तकनीक केवल एक साधन है, और उसका उपयोग मानवता की भलाई और शांति के लिए होना चाहिए।",
-    },
-    {
-      id: 7,
-      title: "७. पुस्तकों का महत्व और स्वाध्याय",
-      text: "पुस्तकें ज्ञान का अक्षय भंडार और सच्ची मार्गदर्शक होती हैं। जब हम एक अच्छी पुस्तक पढ़ते हैं, तो हमें महान विचारकों, वैज्ञानिकों और दार्शनिकों के जीवन के अनुभव सहज ही प्राप्त हो जाते हैं। स्वाध्याय से हमारी कल्पनाशक्ति, भाषा शैली और सोचने की क्षमता में अद्वितीय सुधार होता है। नियमित रूप से स्वाध्याय करने वाला व्यक्ति कभी अकेलापन महसूस नहीं करता।",
-    },
-    {
-      id: 8,
-      title: "८. हिमालय: भारत का मुकुट",
-      text: "हिमालय केवल बर्फ से ढके पर्वतों की एक श्रृंखला नहीं है, बल्कि भारत का गौरवशाली मुकुट और संस्कृति का अभिन्न अंग है। यहाँ से निकलने वाली गंगा, यमुना और ब्रह्मपुत्र जैसी पवित्र नदियाँ हमारे खेतों को सींचती हैं और करोड़ों लोगों को जीवन प्रदान करती हैं। हिमालय की पर्वतमालाएँ उत्तर दिशा से आने वाली ठंडी हवाओं से देश की रक्षा करती हैं और प्राकृतिक संपदा से परिपूर्ण हैं।",
-    },
-    {
-      id: 9,
-      title: "९. स्वास्थ्य ही वास्तविक धन है",
-      text: "स्वास्थ्य के बिना जीवन का कोई भी आनंद सच्चा नहीं हो सकता। स्वस्थ शरीर में ही स्वस्थ मस्तिष्क का निवास होता है। संतुलित आहार, नियमित व्यायाम, प्राणायाम और सकारात्मक सोच उत्तम स्वास्थ्य के चार प्रमुख स्तंभ हैं। जंक फूड और अनियमित दिनचर्या से दूर रहकर यदि हम प्राकृतिक जीवनशैली अपनाएँ, तो हम दीर्घायु और ऊर्जावान बने रह सकते हैं।",
-    },
-    {
-      id: 10,
-      title: "१०. मित्रता का अनमोल संबंध",
-      text: "सच्ची मित्रता जीवन का एक अत्यंत सुंदर और दुर्लभ उपहार है। एक सच्चा मित्र सुख में हमारे साथ हँसता है और दुःख के समय बिना किसी स्वार्थ के सहारा बनकर खड़ा रहता है। मित्रता पद, धन और सामाजिक स्थिति से परे हृदय की आत्मीयता पर टिकी होती है। जिस व्यक्ति के पास एक भी निष्कपट मित्र है, वह वास्तव में संसार का अत्यंत भाग्यशाली व्यक्ति है।",
-    },
-    {
-      id: 11,
-      title: "११. जल संरक्षण: आज की आवश्यकता",
-      text: "जल ही जीवन का मूल आधार है और इसके बिना पृथ्वी पर जीवन की कल्पना भी असंभव है। लगातार गिरता भूजल स्तर और नदियों का प्रदूषण भविष्य के लिए एक गंभीर चेतावनी है। हमें वर्षा जल संचयन की पद्धतियाँ अपनानी होंगी और दैनिक जीवन में पानी की एक-एक बूँद को व्यर्थ बहने से बचाना होगा। जल बचेगा तभी हमारा कल सुरक्षित और समृद्ध रहेगा।",
-    },
-    {
-      id: 12,
-      title: "१२. ग्रामीण जीवन और किसानों का परिश्रम",
-      text: "भारत की आत्मा उसके गाँवों में बसती है। हमारे अन्नदाता किसान कड़ी धूप, कड़ाके की ठंड और मूसलाधार बारिश में भी खेतों में पसीना बहाकर पूरे देश के लिए अनाज पैदा करते हैं। ग्रामीण जीवन की सादगी, शुद्ध वायु, हरियाली और आपसी भाईचारा मन को अपार शांति प्रदान करता है। गाँवों का समग्र विकास ही संपूर्ण राष्ट्र की आत्मनिर्भरता का सच्चा आधार है।",
-    },
-    {
-      id: 13,
-      title: "१३. योग, ध्यान और मानसिक शांति",
-      text: "योग भारतीय ऋषि परंपरा की एक अमूल्य देन है जो शरीर, मन और आत्मा को एक सूत्र में बांधता है। आधुनिक भागदौड़ भरी जिंदगी में तनाव, अवसाद और मानसिक अशांति को दूर करने के लिए योगासन और ध्यान रामबाण उपाय हैं। प्रतिदिन कुछ समय ध्यान करने से एकाग्रता बढ़ती है, सकारात्मक ऊर्जा का संचार होता है और आत्मिक शांति की अनुभूति होती है।",
-    },
-    {
-      id: 14,
-      title: "१४. ऋतुओं का चक्र और भारतीय त्योहार",
-      text: "भारत में वसंत, ग्रीष्म, वर्षा, शरद, हेमंत और शिशिर जैसी छह मनमोहक ऋतुएँ आती हैं। प्रत्येक ऋतु अपने साथ नए रंग, सुहावना मौसम और उमंग लेकर आती है। होली, दिवाली, रक्षाबंधन और मकर संक्रांति जैसे पावन पर्व समाज में परस्पर प्रेम, उल्लास और सद्भाव का संदेश फैलाते हैं। ये त्योहार हमारी प्राचीन परंपराओं को जीवित रखने में महत्वपूर्ण भूमिका निभाते हैं।",
-    },
-    {
-      id: 15,
-      title: "१५. अनुशासन और चरित्र निर्माण",
-      text: "अनुशासन के बिना किसी भी परिवार, संस्था अथवा राष्ट्र की उन्नति संभव नहीं है। प्रकृति का प्रत्येक तत्व जैसे सूर्य का समय पर उदय होना और ऋतुओं का बदलना अनुशासन का सर्वोत्तम उदाहरण है। विद्यार्थी जीवन में जो छात्र समयबद्धता और नियमों का पालन करते हैं, वे भविष्य में उच्च पदों और समाज में आदरणीय स्थान को प्राप्त करते हैं।",
-    },
-    {
-      id: 16,
-      title: "१६. कला, संगीत और मानवीय संवेदनाएँ",
-      text: "कला और संगीत मनुष्य की आंतरिक भावनाओं और सौंदर्यबोध की सर्वोच्च अभिव्यक्ति हैं। जब कोई गायक राग गाता है या चित्रकार कैनवास पर रंग भरता है, तो वह समस्त सांसारिक चिंताओं को भुलाकर एक अलौकिक आनंद में डूब जाता है। संगीत में वह जादुई शक्ति है जो निराश हृदयों में भी नई आशा, साहस और जीवन की उमंग जगा देती है।",
-    },
-    {
-      id: 17,
-      title: "१७. युवाओं की शक्ति और राष्ट्र निर्माण",
-      text: "युवा किसी भी देश की सबसे बड़ी पूंजी और प्रगति के वास्तविक संवाहक होते हैं। उनके भीतर असीम ऊर्जा, नवीन विचार और बड़े परिवर्तन लाने का साहस होता है। यदि हमारी युवा शक्ति को सही मार्गदर्शन, गुणवत्तापूर्ण शिक्षा और रोजगार के अवसर मिलें, तो भारत विश्व स्तर पर एक सशक्त ज्ञान महाशक्ति के रूप में उभर सकता है।",
-    },
-    {
-      id: 18,
-      title: "१८. सौर ऊर्जा और स्वच्छ भविष्य",
-      text: "जीवाश्म ईंधनों की सीमितता और वायु प्रदूषण की समस्या से निपटने के लिए सौर ऊर्जा सबसे प्रभावी विकल्प बनकर उभरी है। भारत में वर्ष भर प्रचुर मात्रा में सूर्य का प्रकाश उपलब्ध रहता है। छतों पर सोलर पैनल लगाने और सौर संयंत्रों को बढ़ावा देने से न केवल बिजली की बचत होती है, बल्कि कार्बन उत्सर्जन में भी भारी कमी आती है।",
-    },
-    {
-      id: 19,
-      title: "१९. सत्य और अहिंसा का अमर संदेश",
-      text: "महात्मा गांधी द्वारा प्रतिपादित सत्य और अहिंसा के सिद्धांत आज भी पूरे विश्व के लिए प्रासंगिक हैं। हिंसा से केवल विनाश और वैमनस्य फैलता है, जबकि सत्य और करुणा के मार्ग पर चलकर सबसे बड़े विरोधियों का दिल भी जीता जा सकता है। ईमानदारी, धैर्य और दूसरों के प्रति सम्मान की भावना ही मानवीय समाज को सुदृढ़ बनाती है।",
-    },
-    {
-      id: 20,
-      title: "२०. परिवार का महत्व और सामाजिक समरसता",
-      text: "परिवार समाज की मूलभूत इकाई है जहाँ एक बालक प्रेम, त्याग, संस्कार और सहयोग का पहला पाठ सीखता है। बड़ों का आदर करना और छोटों को स्नेह देना हमारे पारिवारिक मूल्यों की रीढ़ है। जब परिवार में संवाद, विश्वास और एकता होती है, तो व्यक्ति जीवन की हर चुनौती का सामना मुस्कुराते हुए कर सकता है।",
-    },
-    {
-      id: 21,
-      title: "२१. भाषा और साहित्य का सांस्कृतिक गौरव",
-      text: "भाषा केवल अभिव्यक्ति का माध्यम नहीं है, बल्कि हमारी अस्मिता और संस्कृति का प्रतिबिंब है। हिंदी भाषा अपनी सरलता, सहजता और समृद्ध शब्दावली के कारण जन-जन के हृदय में बसी है। महान कवियों और लेखकों की कालजयी रचनाएँ हमें जीवन के गूढ़ रहस्यों, देशभक्ति और मानवीय मूल्यों से जोड़ती हैं।",
-    },
-    {
-      id: 22,
-      title: "२२. साहस और आत्मविश्वास से विजय",
-      text: "जीवन में सफलता पाने के लिए सबसे पहली आवश्यकता अपने आप पर अटूट भरोसा रखना है। जो व्यक्ति असफलताओं से घबराकर पीछे नहीं हटता और निरंतर प्रयास जारी रखता है, उसकी विजय निश्चित होती है। कठिनाइयाँ हमें मजबूत बनाने और हमारे छिपे हुए सामर्थ्य को जगाने के लिए आती हैं।",
-    },
-  ],
-};
+const PASSAGES = PASSAGES_DATA.passages;
+
+// const PASSAGES = {
+//   en: [
+//     {
+//       id: 1,
+//       title: "1. The Wonder of the Night Sky",
+//       text: "Looking up at the clear night sky, one is filled with deep awe and curiosity. Countless stars glitter across the vast cosmos, reminding us of our tiny place in this grand universe. For thousands of years, ancient navigators relied on the constellations to travel across uncharted oceans. Today, modern telescopes allow astronomers to study distant galaxies, nebulae, and exoplanets. As space science advances, our understanding of the origins of life and matter continues to expand.",
+//     },
+//     {
+//       id: 2,
+//       title: "2. The Evolution of the Internet",
+//       text: "The internet has transformed modern human civilization more rapidly than almost any other invention in history. What began as a modest research network between universities has now grown into a global communications infrastructure. Billions of people connect across continents in a fraction of a second to share ideas, conduct business, and access knowledge. Digital connectivity enables rapid medical advancements, remote collaboration, and international trade, shaping a truly interconnected world.",
+//     },
+//     {
+//       id: 3,
+//       title: "3. The Power of Small Habits",
+//       text: "True success rarely happens overnight through a single dramatic event. Instead, remarkable achievements are usually the result of small, consistent daily habits practiced diligently over time. When an individual commits to reading ten pages a day, exercising for twenty minutes, or learning new vocabulary, the cumulative benefits compound remarkably over months and years. Discipline and patience are far more reliable than fleeting bursts of motivation.",
+//     },
+//     {
+//       id: 4,
+//       title: "4. Deep Oceans and Marine Wonders",
+//       text: "Earth is fundamentally an oceanic planet, with water covering more than seventy percent of its surface. The deep abyss remains one of the least explored environments in our solar system, home to mysterious bioluminescent creatures that thrive under crushing pressure and total darkness. Hydrothermal vents support entire food webs powered by chemical synthesis rather than sunlight. Protecting fragile coral reefs and marine ecosystems is essential for sustaining atmospheric balance and global biodiversity.",
+//     },
+//     {
+//       id: 5,
+//       title: "5. The Philosophy of Mindful Living",
+//       text: "In a modern world saturated with constant noise, rapid notifications, and endless distractions, finding inner calm has become an essential life skill. Practicing mindfulness teaches us to direct conscious attention to the present moment without hasty judgment. By pausing to observe our thoughts, emotions, and breath, we develop mental clarity and emotional resilience. Simple quiet walks in nature and uninterrupted moments of reflection help restore peace to a weary mind.",
+//     },
+//     {
+//       id: 6,
+//       title: "6. The Joy of Lifelong Reading",
+//       text: "Books are quiet companions that hold the distilled wisdom of countless generations. When we open a well-written book, we embark on an intellectual journey through history, philosophy, and imagination. Reading stimulates cognitive vitality, sharpens analytical reasoning, and cultivates deep empathy by allowing us to experience life through another person's eyes. Cultivating a regular reading routine is one of the finest investments an individual can make in personal growth.",
+//     },
+//     {
+//       id: 7,
+//       title: "7. Renewable Energy and the Green Future",
+//       text: "Transitioning to clean, renewable sources of power is the paramount environmental challenge of our era. Solar panels capture clean photons from our sun, while modern wind turbines generate immense clean electricity across breezy plains and offshore coasts. Geothermal and green hydrogen technologies offer promising pathways for industrial decarbonization. By investing boldly in smart electrical grids, humanity can build a resilient, prosperous, and sustainable planet for future generations.",
+//     },
+//     {
+//       id: 8,
+//       title: "8. The Architecture of Ancient Wonders",
+//       text: "Ancient builders accomplished astonishing engineering triumphs long before the invention of modern machinery. The Great Pyramid of Giza, the Roman Colosseum, and the majestic temples of Asia stand as enduring monuments to human determination, mathematical precision, and artistic vision. These ancient structures tell timeless stories of civilization, trade networks, religious reverence, and civic pride that continue to inspire architects and historians today.",
+//     },
+//     {
+//       id: 9,
+//       title: "9. Artificial Intelligence and Creativity",
+//       text: "The rapid development of artificial intelligence marks a historic turning point in computation and human ingenuity. Intelligent algorithms can analyze massive datasets, discover novel pharmaceuticals, predict weather patterns, and automate routine tasks. However, genuine creativity, moral empathy, and emotional warmth remain distinctively human attributes. The future belongs to thoughtful collaborations between human creativity and computational intelligence.",
+//     },
+//     {
+//       id: 10,
+//       title: "10. The Healing Power of Forests",
+//       text: "Forests are the living green lungs of our planet, absorbing carbon dioxide and breathing vital oxygen into the atmosphere. The intricate fungal networks beneath the forest floor allow trees to communicate, share essential nutrients, and warn neighboring plants of pests. Spending mindful time among old trees lowers human stress hormones, strengthens immune health, and restores tranquility, demonstrating the profound biological bond between humanity and nature.",
+//     },
+//     {
+//       id: 11,
+//       title: "11. The History of Written Communication",
+//       text: "The invention of writing represents one of humanity's greatest cultural milestones. From ancient cuneiform clay tablets and Egyptian hieroglyphs to parchment manuscripts and Gutenberg's revolutionary printing press, written words allowed knowledge to survive across centuries. Today, instant digital text connects distant cultures instantly. Writing preserves legal agreements, sacred poetry, scientific breakthroughs, and the rich narrative tapestry of human existence.",
+//     },
+//     {
+//       id: 12,
+//       title: "12. Mountain Climbing and Human Courage",
+//       text: "Scaling towering mountain peaks requires rigorous physical endurance, mental discipline, and absolute respect for natural elements. High-altitude mountaineers brave freezing blizzards, thin oxygen, and treacherous icy crevasses in pursuit of high summits. The climb teaches humility, focus, and comradeship among team members. Reaching a windswept mountain peak reveals magnificent vistas that remind climbers that the journey itself is the true reward.",
+//     },
+//     {
+//       id: 13,
+//       title: "13. The Science of Healthy Sleep",
+//       text: "Restful sleep is not a passive luxury, but a biological necessity vital for mental and physical health. During deep sleep cycles, the human brain consolidates memories, clears toxic cellular debris, and restores energy reserves. Chronic sleep deprivation weakens the immune defense, degrades emotional stability, and impairs cognitive reaction times. Maintaining consistent sleep hours and a calm evening routine enhances overall vigor, memory retention, and daily productivity.",
+//     },
+//     {
+//       id: 14,
+//       title: "14. Culinary Traditions and Culture",
+//       text: "Food is far more than mere biological nourishment; it is a delicious expression of cultural history and communal love. Traditional culinary recipes passed down through generations carry the aromas, regional spices, and heartwarming stories of ancestral kitchens. Gathering around a warm dinner table fosters meaningful bonds, celebration, and hospitality among family and neighbors, transcending linguistic barriers across the globe.",
+//     },
+//     {
+//       id: 15,
+//       title: "15. The Journey to the Red Planet",
+//       text: "Exploring planet Mars stands as the next great frontier for human space exploration. Robotic rovers equipped with advanced scientific instruments traverse rocky red craters in search of ancient water signatures and microbial life. Establishing human settlements on Mars will demand breakthrough advances in closed-loop life support, radiation shielding, and sustainable food production, inspiring humanity to dream far beyond our home planet.",
+//     },
+//     {
+//       id: 16,
+//       title: "16. The Universal Language of Music",
+//       text: "Music possesses a unique emotional power to transcend cultural boundaries and unite human hearts across the world. An evocative melody, a rhythmic drumbeat, or a stirring orchestral harmony can evoke joy, nostalgia, courage, or contemplative sadness without uttering a single spoken word. Throughout human history, music has accompanied ceremonies, inspired revolutions, celebrated love, and comforted troubled souls.",
+//     },
+//     {
+//       id: 17,
+//       title: "17. Sustainable Agriculture and Soil Health",
+//       text: "Feeding a growing global population while protecting delicate topsoil and freshwater reserves demands innovative agricultural practices. Regenerative farming techniques, crop rotation, organic composting, and precision drip irrigation restore fertility to exhausted soil. By reducing chemical pesticides and minimizing food waste across supply chains, communities can achieve equitable food security and protect our fragile biosphere.",
+//     },
+//     {
+//       id: 18,
+//       title: "18. The Dynamics of Modern Cities",
+//       text: "Contemporary metropolitan cities are vibrant hubs of economic innovation, architectural splendor, and diverse cultures. Well-planned urban environments prioritize accessible public transit, pedestrian-friendly streets, green public parks, and affordable energy-efficient housing. When urban centers cultivate inclusive communities and resilient infrastructure, they become dynamic engines of intellectual, artistic, and social progress.",
+//     },
+//     {
+//       id: 19,
+//       title: "19. The Psychology of Emotional Resilience",
+//       text: "Life inevitably brings unforeseen difficulties, sudden losses, and demanding setbacks. Resilience is not the complete absence of emotional pain, but the inner capacity to adapt, recover, and grow stronger in the face of adversity. By cultivating optimistic problem-solving skills, practicing self-compassion, and seeking encouragement from trusted mentors, people develop the emotional fortitude needed to triumph over life's trials.",
+//     },
+//     {
+//       id: 20,
+//       title: "20. Wildlife Conservation and Biodiversity",
+//       text: "Every living species, from the smallest pollinating bee to the majestic blue whale, plays an irreplaceable role in maintaining healthy ecological balance. Habitat loss, poaching, and climate disruption threaten thousands of vulnerable plant and animal species worldwide. Establishing wildlife corridors, preserving native habitats, and enforcing conservation laws are vital moral responsibilities for preserving the wonderful diversity of earthly life.",
+//     },
+//     {
+//       id: 21,
+//       title: "21. The Craft of Storytelling",
+//       text: "Since the dawn of human civilization, people have gathered around glowing campfires to share captivating stories of heroic quests, moral dilemmas, and cosmic mysteries. Storytelling preserves oral traditions, educates the young, and deepens emotional understanding among listeners. A compelling narrative sparks imagination, challenges prejudice, and reminds us that our shared human hopes and vulnerabilities unite us all.",
+//     },
+//     {
+//       id: 22,
+//       title: "22. The Value of Honest Friendships",
+//       text: "Genuine friendship is one of the sweetest blessings that enrich the journey of human life. A true friend celebrates your triumphs with authentic joy and stands steadfastly beside you during challenging storms of hardship. Built upon mutual trust, honest communication, and unselfish kindness, deep friendships provide a comforting sanctuary where one can be entirely vulnerable, understood, and cherished.",
+//     },
+//   ],
+
+//   hi: [
+//     {
+//       id: 1,
+//       title: "१. समय का सदुपयोग और सफलता",
+//       text: "समय संसार का सबसे मूल्यवान धन है क्योंकि बीता हुआ पल कभी वापस नहीं आता। जो व्यक्ति समय का सम्मान करता है और अपने दैनिक कार्यों को योजनाबद्ध तरीके से पूरा करता है, उसे जीवन में सफलता अवश्य प्राप्त होती है। आलस्य मनुष्य का सबसे बड़ा शत्रु है जो सुनहरे अवसरों को नष्ट कर देता है। हमें समय के प्रत्येक क्षण का सदुपयोग करते हुए ज्ञानार्जन, कौशल विकास और समाज के कल्याण के लिए निरंतर समर्पित रहना चाहिए।",
+//     },
+//     {
+//       id: 2,
+//       title: "२. प्रकृति का सौंदर्य और पर्यावरण संरक्षण",
+//       text: "प्रकृति ईश्वर की सबसे सुंदर और अनुपम रचना है। हरे-भरे वन, कलकल बहती नदियाँ, ऊंचे पर्वत और चहकते पक्षी हमारी धरती को प्राणवान बनाते हैं। परंतु आधुनिक युग में अनियंत्रित औद्योगीकरण और प्रदूषण के कारण हमारा पर्यावरण संकट में पड़ गया है। यदि हमने वनों की कटाई रोकी और अधिक से अधिक पौधे लगाए, तो हम अपनी आने वाली पीढ़ियों को एक स्वस्थ, स्वच्छ और सुंदर ग्रह उपहार में दे सकेंगे।",
+//     },
+//     {
+//       id: 3,
+//       title: "३. भारतीय संस्कृति और विविधता में एकता",
+//       text: "भारत एक प्राचीन और महान राष्ट्र है जहाँ अनेक भाषाएँ, धर्म, रीति-रिवाज और परंपराएँ एक साथ मिलकर फलती-फूलती हैं। हमारी संस्कृति 'वसुधैव कुटुम्बकम्' अर्थात समस्त पृथ्वी को एक परिवार मानने के दिव्य संदेश पर आधारित है। विभिन्नताओं के बावजूद हम सभी भारतवासी एक अटूट राष्ट्रीय भावना से जुड़े हैं। यही सांस्कृतिक विविधता और आपसी सद्भाव हमारे देश की वास्तविक शक्ति और वैश्विक पहचान है।",
+//     },
+//     {
+//       id: 4,
+//       title: "४. शिक्षा का वास्तविक उद्देश्य",
+//       text: "शिक्षा का मूल उद्देश्य केवल डिग्री प्राप्त करना या आजीविका कमाना नहीं है, बल्कि व्यक्ति के चरित्र का निर्माण और उसके दृष्टिकोण को व्यापक बनाना है। सच्ची शिक्षा मनुष्य में विनम्रता, करुणा, सत्यनिष्ठा और कर्तव्यबोध का संचार करती है। जब एक शिक्षित नागरिक समाज के निर्बल वर्गों के उत्थान और देश की प्रगति के लिए विचार करता है, तभी शिक्षा की सार्थकता सिद्ध होती है।",
+//     },
+//     {
+//       id: 5,
+//       title: "५. परिश्रम और आत्म-विश्वास की शक्ति",
+//       text: "परिश्रम ही सफलता की सुनहरी कुंजी है। बिना कठोर साधना और लगन के कोई भी महान लक्ष्य सिद्ध नहीं हो सकता। इतिहास गवाह है कि जिन महापुरुषों ने दुनिया को नई दिशा दी, उन्होंने निरंतर संघर्ष और अदम्य साहस से अपनी राह बनाई। जब व्यक्ति के मन में अटूट आत्मविश्वास और कर्म के प्रति निष्ठा होती है, तो बड़ी से बड़ी कठिनाई भी उसके कदमों में झुक जाती है।",
+//     },
+//     {
+//       id: 6,
+//       title: "६. विज्ञान और आधुनिक तकनीक का सदुपयोग",
+//       text: "विज्ञान और प्रौद्योगिकी ने इक्कीसवीं सदी में मानव जीवन को पूरी तरह से बदल दिया है। कंप्यूटर, इंटरनेट और मोबाइल के माध्यम से ज्ञान और संचार का विस्तार असीमित हो गया है। चिकित्सा, कृषि और अंतरिक्ष के क्षेत्र में नए आविष्कारों ने असंभव को संभव बना दिया है। हमें यह स्मरण रखना चाहिए कि तकनीक केवल एक साधन है, और उसका उपयोग मानवता की भलाई और शांति के लिए होना चाहिए।",
+//     },
+//     {
+//       id: 7,
+//       title: "७. पुस्तकों का महत्व और स्वाध्याय",
+//       text: "पुस्तकें ज्ञान का अक्षय भंडार और सच्ची मार्गदर्शक होती हैं। जब हम एक अच्छी पुस्तक पढ़ते हैं, तो हमें महान विचारकों, वैज्ञानिकों और दार्शनिकों के जीवन के अनुभव सहज ही प्राप्त हो जाते हैं। स्वाध्याय से हमारी कल्पनाशक्ति, भाषा शैली और सोचने की क्षमता में अद्वितीय सुधार होता है। नियमित रूप से स्वाध्याय करने वाला व्यक्ति कभी अकेलापन महसूस नहीं करता।",
+//     },
+//     {
+//       id: 8,
+//       title: "८. हिमालय: भारत का मुकुट",
+//       text: "हिमालय केवल बर्फ से ढके पर्वतों की एक श्रृंखला नहीं है, बल्कि भारत का गौरवशाली मुकुट और संस्कृति का अभिन्न अंग है। यहाँ से निकलने वाली गंगा, यमुना और ब्रह्मपुत्र जैसी पवित्र नदियाँ हमारे खेतों को सींचती हैं और करोड़ों लोगों को जीवन प्रदान करती हैं। हिमालय की पर्वतमालाएँ उत्तर दिशा से आने वाली ठंडी हवाओं से देश की रक्षा करती हैं और प्राकृतिक संपदा से परिपूर्ण हैं।",
+//     },
+//     {
+//       id: 9,
+//       title: "९. स्वास्थ्य ही वास्तविक धन है",
+//       text: "स्वास्थ्य के बिना जीवन का कोई भी आनंद सच्चा नहीं हो सकता। स्वस्थ शरीर में ही स्वस्थ मस्तिष्क का निवास होता है। संतुलित आहार, नियमित व्यायाम, प्राणायाम और सकारात्मक सोच उत्तम स्वास्थ्य के चार प्रमुख स्तंभ हैं। जंक फूड और अनियमित दिनचर्या से दूर रहकर यदि हम प्राकृतिक जीवनशैली अपनाएँ, तो हम दीर्घायु और ऊर्जावान बने रह सकते हैं।",
+//     },
+//     {
+//       id: 10,
+//       title: "१०. मित्रता का अनमोल संबंध",
+//       text: "सच्ची मित्रता जीवन का एक अत्यंत सुंदर और दुर्लभ उपहार है। एक सच्चा मित्र सुख में हमारे साथ हँसता है और दुःख के समय बिना किसी स्वार्थ के सहारा बनकर खड़ा रहता है। मित्रता पद, धन और सामाजिक स्थिति से परे हृदय की आत्मीयता पर टिकी होती है। जिस व्यक्ति के पास एक भी निष्कपट मित्र है, वह वास्तव में संसार का अत्यंत भाग्यशाली व्यक्ति है।",
+//     },
+//     {
+//       id: 11,
+//       title: "११. जल संरक्षण: आज की आवश्यकता",
+//       text: "जल ही जीवन का मूल आधार है और इसके बिना पृथ्वी पर जीवन की कल्पना भी असंभव है। लगातार गिरता भूजल स्तर और नदियों का प्रदूषण भविष्य के लिए एक गंभीर चेतावनी है। हमें वर्षा जल संचयन की पद्धतियाँ अपनानी होंगी और दैनिक जीवन में पानी की एक-एक बूँद को व्यर्थ बहने से बचाना होगा। जल बचेगा तभी हमारा कल सुरक्षित और समृद्ध रहेगा।",
+//     },
+//     {
+//       id: 12,
+//       title: "१२. ग्रामीण जीवन और किसानों का परिश्रम",
+//       text: "भारत की आत्मा उसके गाँवों में बसती है। हमारे अन्नदाता किसान कड़ी धूप, कड़ाके की ठंड और मूसलाधार बारिश में भी खेतों में पसीना बहाकर पूरे देश के लिए अनाज पैदा करते हैं। ग्रामीण जीवन की सादगी, शुद्ध वायु, हरियाली और आपसी भाईचारा मन को अपार शांति प्रदान करता है। गाँवों का समग्र विकास ही संपूर्ण राष्ट्र की आत्मनिर्भरता का सच्चा आधार है।",
+//     },
+//     {
+//       id: 13,
+//       title: "१३. योग, ध्यान और मानसिक शांति",
+//       text: "योग भारतीय ऋषि परंपरा की एक अमूल्य देन है जो शरीर, मन और आत्मा को एक सूत्र में बांधता है। आधुनिक भागदौड़ भरी जिंदगी में तनाव, अवसाद और मानसिक अशांति को दूर करने के लिए योगासन और ध्यान रामबाण उपाय हैं। प्रतिदिन कुछ समय ध्यान करने से एकाग्रता बढ़ती है, सकारात्मक ऊर्जा का संचार होता है और आत्मिक शांति की अनुभूति होती है।",
+//     },
+//     {
+//       id: 14,
+//       title: "१४. ऋतुओं का चक्र और भारतीय त्योहार",
+//       text: "भारत में वसंत, ग्रीष्म, वर्षा, शरद, हेमंत और शिशिर जैसी छह मनमोहक ऋतुएँ आती हैं। प्रत्येक ऋतु अपने साथ नए रंग, सुहावना मौसम और उमंग लेकर आती है। होली, दिवाली, रक्षाबंधन और मकर संक्रांति जैसे पावन पर्व समाज में परस्पर प्रेम, उल्लास और सद्भाव का संदेश फैलाते हैं। ये त्योहार हमारी प्राचीन परंपराओं को जीवित रखने में महत्वपूर्ण भूमिका निभाते हैं।",
+//     },
+//     {
+//       id: 15,
+//       title: "१५. अनुशासन और चरित्र निर्माण",
+//       text: "अनुशासन के बिना किसी भी परिवार, संस्था अथवा राष्ट्र की उन्नति संभव नहीं है। प्रकृति का प्रत्येक तत्व जैसे सूर्य का समय पर उदय होना और ऋतुओं का बदलना अनुशासन का सर्वोत्तम उदाहरण है। विद्यार्थी जीवन में जो छात्र समयबद्धता और नियमों का पालन करते हैं, वे भविष्य में उच्च पदों और समाज में आदरणीय स्थान को प्राप्त करते हैं।",
+//     },
+//     {
+//       id: 16,
+//       title: "१६. कला, संगीत और मानवीय संवेदनाएँ",
+//       text: "कला और संगीत मनुष्य की आंतरिक भावनाओं और सौंदर्यबोध की सर्वोच्च अभिव्यक्ति हैं। जब कोई गायक राग गाता है या चित्रकार कैनवास पर रंग भरता है, तो वह समस्त सांसारिक चिंताओं को भुलाकर एक अलौकिक आनंद में डूब जाता है। संगीत में वह जादुई शक्ति है जो निराश हृदयों में भी नई आशा, साहस और जीवन की उमंग जगा देती है।",
+//     },
+//     {
+//       id: 17,
+//       title: "१७. युवाओं की शक्ति और राष्ट्र निर्माण",
+//       text: "युवा किसी भी देश की सबसे बड़ी पूंजी और प्रगति के वास्तविक संवाहक होते हैं। उनके भीतर असीम ऊर्जा, नवीन विचार और बड़े परिवर्तन लाने का साहस होता है। यदि हमारी युवा शक्ति को सही मार्गदर्शन, गुणवत्तापूर्ण शिक्षा और रोजगार के अवसर मिलें, तो भारत विश्व स्तर पर एक सशक्त ज्ञान महाशक्ति के रूप में उभर सकता है।",
+//     },
+//     {
+//       id: 18,
+//       title: "१८. सौर ऊर्जा और स्वच्छ भविष्य",
+//       text: "जीवाश्म ईंधनों की सीमितता और वायु प्रदूषण की समस्या से निपटने के लिए सौर ऊर्जा सबसे प्रभावी विकल्प बनकर उभरी है। भारत में वर्ष भर प्रचुर मात्रा में सूर्य का प्रकाश उपलब्ध रहता है। छतों पर सोलर पैनल लगाने और सौर संयंत्रों को बढ़ावा देने से न केवल बिजली की बचत होती है, बल्कि कार्बन उत्सर्जन में भी भारी कमी आती है।",
+//     },
+//     {
+//       id: 19,
+//       title: "१९. सत्य और अहिंसा का अमर संदेश",
+//       text: "महात्मा गांधी द्वारा प्रतिपादित सत्य और अहिंसा के सिद्धांत आज भी पूरे विश्व के लिए प्रासंगिक हैं। हिंसा से केवल विनाश और वैमनस्य फैलता है, जबकि सत्य और करुणा के मार्ग पर चलकर सबसे बड़े विरोधियों का दिल भी जीता जा सकता है। ईमानदारी, धैर्य और दूसरों के प्रति सम्मान की भावना ही मानवीय समाज को सुदृढ़ बनाती है।",
+//     },
+//     {
+//       id: 20,
+//       title: "२०. परिवार का महत्व और सामाजिक समरसता",
+//       text: "परिवार समाज की मूलभूत इकाई है जहाँ एक बालक प्रेम, त्याग, संस्कार और सहयोग का पहला पाठ सीखता है। बड़ों का आदर करना और छोटों को स्नेह देना हमारे पारिवारिक मूल्यों की रीढ़ है। जब परिवार में संवाद, विश्वास और एकता होती है, तो व्यक्ति जीवन की हर चुनौती का सामना मुस्कुराते हुए कर सकता है।",
+//     },
+//     {
+//       id: 21,
+//       title: "२१. भाषा और साहित्य का सांस्कृतिक गौरव",
+//       text: "भाषा केवल अभिव्यक्ति का माध्यम नहीं है, बल्कि हमारी अस्मिता और संस्कृति का प्रतिबिंब है। हिंदी भाषा अपनी सरलता, सहजता और समृद्ध शब्दावली के कारण जन-जन के हृदय में बसी है। महान कवियों और लेखकों की कालजयी रचनाएँ हमें जीवन के गूढ़ रहस्यों, देशभक्ति और मानवीय मूल्यों से जोड़ती हैं।",
+//     },
+//     {
+//       id: 22,
+//       title: "२२. साहस और आत्मविश्वास से विजय",
+//       text: "जीवन में सफलता पाने के लिए सबसे पहली आवश्यकता अपने आप पर अटूट भरोसा रखना है। जो व्यक्ति असफलताओं से घबराकर पीछे नहीं हटता और निरंतर प्रयास जारी रखता है, उसकी विजय निश्चित होती है। कठिनाइयाँ हमें मजबूत बनाने और हमारे छिपे हुए सामर्थ्य को जगाने के लिए आती हैं।",
+//     },
+//   ],
+// };
 
 // ==========================================
 // Application State
 // ==========================================
+
 const state = {
   lang: "en",
   durationMinutes: 5,
@@ -484,7 +488,18 @@ function populatePassageDropdown() {
   list.forEach((item, idx) => {
     const option = document.createElement("option");
     option.value = idx;
-    option.textContent = item.title;
+
+    let badge = "";
+
+    if (item.difficulty === "easy") {
+      badge = "🟢"; // Green circle
+    } else if (item.difficulty === "medium") {
+      badge = "🟡"; // Yellow circle
+    } else if (item.difficulty === "hard") {
+      badge = "🔴"; // Red circle
+    }
+
+    option.textContent = `${idx + 1}. ${item.title} ${badge}`;
     DOM.passageSelect.appendChild(option);
   });
 
@@ -1182,7 +1197,7 @@ function setActiveSession(user) {
         JSON.stringify({
           username: user.username,
           fullName: user.fullName || user.username,
-        })
+        }),
       );
     } else {
       localStorage.removeItem(SESSION_KEY);
@@ -1347,7 +1362,7 @@ function exportHistoryToCSV() {
   link.setAttribute("href", encodedUri);
   link.setAttribute(
     "download",
-    `typing_history_${userName}_${new Date().toISOString().slice(0, 10)}.csv`
+    `typing_history_${userName}_${new Date().toISOString().slice(0, 10)}.csv`,
   );
   document.body.appendChild(link);
   link.click();
@@ -1390,7 +1405,7 @@ function renderHistoryView(filterLang = "all") {
   const avgAcc = Math.round(totalAcc / count);
   const totalSecs = filtered.reduce(
     (acc, i) => acc + (i.elapsedSeconds || i.durationMinutes * 60),
-    0
+    0,
   );
 
   const totalMins = Math.round(totalSecs / 60);
@@ -1416,15 +1431,15 @@ function renderHistoryView(filterLang = "all") {
         item.accuracy >= 95
           ? "acc-high"
           : item.accuracy >= 85
-          ? "acc-mid"
-          : "acc-low";
+            ? "acc-mid"
+            : "acc-low";
 
       return `
         <tr class="${isPb ? "row-pb" : ""}">
           <td>${escapeHtml(item.dateFormatted || "")}</td>
           <td>${langTag}</td>
           <td title="${escapeHtml(item.passageTitle || "")}">${escapeHtml(
-            item.passageTitle || "Practice"
+            item.passageTitle || "Practice",
           )}</td>
           <td class="speed-cell mono">${item.netWpm} ${pbBadge}</td>
           <td class="${accClass} mono">${item.accuracy}%</td>
@@ -1536,8 +1551,7 @@ function showAuthAlert(type, message, isSuccess = false) {
   const alertEl = type === "login" ? DOM.loginAlert : DOM.signupAlert;
   if (!alertEl) return;
   alertEl.textContent = message;
-  alertEl.className =
-    "auth-alert" + (isSuccess ? " alert-success" : "");
+  alertEl.className = "auth-alert" + (isSuccess ? " alert-success" : "");
   alertEl.classList.remove("hidden");
 }
 
@@ -1637,7 +1651,7 @@ if (DOM.signupForm) {
     if (!/^[a-z0-9_]{3,20}$/.test(username)) {
       showAuthAlert(
         "signup",
-        "Username must be 3-20 characters long and contain only letters, numbers, or underscores."
+        "Username must be 3-20 characters long and contain only letters, numbers, or underscores.",
       );
       return;
     }
@@ -1656,7 +1670,7 @@ if (DOM.signupForm) {
     if (accounts[username]) {
       showAuthAlert(
         "signup",
-        "This username is already taken. Please choose another."
+        "This username is already taken. Please choose another.",
       );
       return;
     }
